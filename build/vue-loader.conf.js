@@ -20,3 +20,4 @@ module.exports = {
     image: 'xlink:href'
   }
 }
+// 配置了css加载器以及编译css之后自动添加前缀；

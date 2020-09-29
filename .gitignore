@@ -12,3 +12,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+# git上传需要忽略的文件配置

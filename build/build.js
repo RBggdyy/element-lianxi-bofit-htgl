@@ -39,3 +39,4 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     ))
   })
 })
+// 生产环境构建脚本；

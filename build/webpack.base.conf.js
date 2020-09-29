@@ -19,12 +19,15 @@ module.exports = {
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+      // ? config.build.assetsPublicPath
+      // : config.dev.assetsPublicPath
+      // 解决打包后html页面空白的问题
+      ? './'+ config.build.assetsPublicPath
+      : './'+ config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
+    extensions: ['.js', '.vue', '.json'],//自动解析确定的拓展名，使导入模块时不带拓展名
+    alias: {//创建import 或 require的别名
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
     }
@@ -32,9 +35,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
+        test: /\.vue$/,//文件后缀名
         loader: 'vue-loader',
-        options: vueLoaderConfig
+        options: vueLoaderConfig//使用vue-loader处理
       },
       {
         test: /\.js$/,
@@ -84,3 +87,4 @@ module.exports = {
     child_process: 'empty'
   }
 }
+// webpack基本配置；
