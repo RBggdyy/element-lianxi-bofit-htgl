@@ -1,80 +1,117 @@
 <template>
-<div class="box">
-     <div class="menu" >
-         <!-- <router-link :to="v.path" v-for="(v,i) in route" :key="i" @click.native="funxuanze(v.id)"  > -->
-         <!-- <img :src="  v.imgsrccur " alt="" v-if="id == v.id">
-         <img :src="  v.imgsrc " alt="" v-else>
-         <span>{{v.txt}}</span> -->
-         <!-- </router-link> -->
-     </div>
-     <!-- <div class="cont"> -->
-         <!-- <router-view></router-view> -->
-     <!-- </div> -->
-        <!-- <FooterBar :keyid="1"></FooterBar> -->
+    <div>
+        <el-button type="primary" @click="dialogVisible = true">点击打开弹窗</el-button>
+
+        <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="50%"
+        min-height="300px"
+        :before-close="handleClose">
+        <el-checkbox-group v-model="checkList"  @change="checkChange">
+            <el-checkbox v-for="item in checkBoxData" :key="item.id" :label="item.id">{{item.label}}</el-checkbox>
+        </el-checkbox-group>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false;checkList=[]">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+        </el-dialog>
+        <br/>
+        <div style="display:flex; width:50%;justify-content: space-between;margin: 20px;">
+            <template  v-for="(item,index) in switchData" >
+                <span :key="index">{{item.name}}:</span>
+                <el-switch
+                    :key="item.indexData"
+                    v-model="item.status"
+                    :active-value="0"
+                    :inactive-value="1"
+                    active-color="#13ce66"
+                    @change="switchOnchange($event,item)"
+                    inactive-color="#ff4949">
+                </el-switch>
+            </template>
+        </div>
     </div>
 </template>
-<script>
 
-// import FooterBar from "../components/footerBar";
-export default {
-    components:{
-        // FooterBar 
+<script>
+  export default {
+    data() {
+      return {
+        switchValue: "",
+        switchData:[],
+        dialogVisible: false,
+        checkList: [],
+        checkBoxData:[
+            {
+                id:1,
+                label:"复选框 A",
+                value:1
+            },
+            {
+                id:2,
+                label:"复选框 B",
+                value:2
+            },
+            {
+                id:3,
+                label:"复选框 C",
+                value:3
+            }
+        ]
+      };
     },
-     mounted(){
-       this.funxuanze();
-     },
-     data(){
-        return{
-            route:[
-                {id:0,path:'/fangkong/dengguang',txt:"灯光","imgsrc":"../../static/img/icon/dengguangone.png","imgsrccur":"../../static/img/icon/dengguangtwo.png"},
-                {id:1,path:'/fangkong/tv',txt:"电视","imgsrc":"../../static/img/icon/tvone.png","imgsrccur":"../../static/img/icon/tvtwo.png"},
-                {id:2,path:'/fangkong/kongtiao',txt:"空调","imgsrc":"../../static/img/icon/kongtiaoone.png","imgsrccur":"../../static/img/icon/kongtiaotwo.png"},
-                {id:3,path:'/fangkong/chuanglian',txt:"窗帘","imgsrc":"../../static/img/icon/dengguangone.png","imgsrccur":"../../static/img/icon/dengguangtwo.png"},
-            ],
-            id:0,
+    methods: {
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+            .then(_ => {
+                done();
+            })
+            .catch(_ => {});
+        },
+        checkChange(data) {
+            this.checkList = data
+            console.log(this.checkList,"checkList");
+        },
+        switchOnchange(e) {
+            this.switchValue = e
+            console.log(this.switchValue,"this.switchValue");
         }
     },
-    methods:{
-       funxuanze(id){
-        //    this.id = id;
-        //    console.log(this.id)
-       }
+    mounted() {
+        let attr2 = {
+            key1:"一键",
+            key2:"二键",
+            key3:"三键",
+            key4:"四键",
+            key5:"五键",
+            key6:"六键",
+            // SW:"ON",
+            // SW1:"OFF",
+            // SW2:"OFF",
+            // SW3:"OFF",
+            // SW4:"ON",
+            // SW5:"ON",
+            // SW6:"OFF",
+        }
+        let arr = []
+        for(let i in attr2) {
+            let obj = {
+                indexData:i,
+                name:attr2[i],
+                status:false,
+            }
+            arr.push(obj)
+        }
+        this.switchData = arr
+        console.log(this.switchData,"this.switchData");
     },
-
-}
+  };
 </script>
 
 <style scoped>
 .box{
      overflow: hidden;
-}
-.menu{
-display: flex;
-justify-content: space-around;
-width: 3.33rem;
-margin: 0 auto;
-margin-top: .35rem;
-}
-.menu>a{
-    width: .73rem;
-    height: .73rem;
-    /* background-image: url('../../static/img/Banner/weixuanzhong.png'); */
-    background-size: .73rem .73rem;
-    font-size: .13rem;
-    color:rgb(51,51,51);
-    text-align: center;
-}
-.menu>a>img{
- width: .28rem;
- height: .28rem;
- margin-top: .08rem;
-}
-.menu>a>span{
- display: block;
-}
-.menu>.router-link-active{
-    color: white;
-    /* background-image: url('../../static/img/Banner/xuanzhong.png'); */
 }
 </style>
 
