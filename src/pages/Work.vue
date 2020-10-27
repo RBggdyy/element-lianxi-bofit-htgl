@@ -85,14 +85,7 @@
             key3:"三键",
             key4:"四键",
             key5:"五键",
-            key6:"六键",
-            // SW:"ON",
-            // SW1:"OFF",
-            // SW2:"OFF",
-            // SW3:"OFF",
-            // SW4:"ON",
-            // SW5:"ON",
-            // SW6:"OFF",
+            key6:"六键"
         }
         let arr = []
         for(let i in attr2) {
